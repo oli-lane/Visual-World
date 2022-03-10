@@ -1,0 +1,19 @@
+Design Choices.
+
+Adjacent - this method is only called by methods in entity, so it makes sense to move it to Entity and make it private
+but leave it static. Even though it only does math, if it's only used in one class then it should be in that class
+
+NearestEntity - only called in WorldModel, so I moved it there and made it private and static.
+
+DistanceSquared - though it only does math, only WorldModel uses it, so I moved it there.
+
+SetAlpha - doesn't have any objects in its parameters nor does it have any object's instance variables in its
+parameters, so I could leave it, but it's only called in ImageStore, so it makes sense to be moved there.
+
+Clamp - Same goes for clamp, only used in WorldView, so it can go there and not cause any problems.
+
+getCurrentImage - goes in Entity and Background because the function has a case for both, so it only makes sense that
+each class one can call it.
+
+For all of these I could have left them, and it would have worked fine, but by moving them if they're only called in
+one class it's a more concise way to consolidate and bundle data and methods.
