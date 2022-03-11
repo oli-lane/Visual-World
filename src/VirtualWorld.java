@@ -84,6 +84,42 @@ public final class VirtualWorld extends PApplet
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
 
+
+        for (int i = pressed.x - 4; i < pressed.x + 4; i++) {
+            for (int j = pressed.y - 4; j < pressed.y + 4; j++) {
+                // create alternating chess board tiling
+                if (i % 2 == j % 2) {
+                    String id = "darkWood";
+                    world.setBackground(new Point(i, j), new Background(id, imageStore.getImageList(id)));
+                } else {
+                    String id = "lightWood";
+                    world.setBackground(new Point(i, j), new Background(id, imageStore.getImageList(id)));
+                }
+                // mess with entities
+                Optional<Entity> entityOptional = world.getOccupant(new Point(i, j));
+                if (entityOptional.isPresent()) {
+                    // remove obstacles
+                    if (entityOptional.get().getClass().equals(Obstacle.class)) {
+                        world.removeEntity(entityOptional.get());
+                    }
+                    // turn dudes into black kings
+                    if (entityOptional.get().getClass().equals(Dude_Full.class) || entityOptional.get().getClass().equals(Dude_Not_Full.class)) {
+                        world.removeEntity(entityOptional.get());
+                        // add a black king
+                    }
+                    // turn plants into white pawns
+                    if (entityOptional.get().getClass().equals(Sapling.class) || entityOptional.get().getClass().equals(Tree.class)
+                    || entityOptional.get().getClass().equals(Stump.class)) {
+                        world.removeEntity(entityOptional.get());
+                        // add a white pawn
+                    }
+                }
+                // add a queen
+
+
+            }
+        }
+
         Optional<Entity> entityOptional = world.getOccupant(pressed);
         if (entityOptional.isPresent())
         {
