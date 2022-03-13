@@ -93,4 +93,44 @@ public class Factory {
                 actionPeriod, animationPeriod, resourceLimit, images);
     }
 
+    public static WhitePawn createWhitePawn(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+        return new WhitePawn(id, position,
+                actionPeriod, animationPeriod, images);
+    }
+
+    public static BlackPawn createBlackPawn(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+        return new BlackPawn(id, position,
+                actionPeriod, animationPeriod, images);
+    }
+
+    public static WhiteQueen createWhiteQueen(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+        return new WhiteQueen(id, position,
+                actionPeriod, animationPeriod, images);
+    }
+
+    public static BlackQueen createBlackQueen(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+        return new BlackQueen(id, position,
+                actionPeriod, animationPeriod, images);
+    }
+
 }
