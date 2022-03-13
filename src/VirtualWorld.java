@@ -239,6 +239,7 @@ public final class VirtualWorld extends PApplet
         }
     }
 
+
     public static void main(String[] args) {
         parseCommandLine(args);
         PApplet.main(VirtualWorld.class);
