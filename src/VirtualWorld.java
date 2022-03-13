@@ -106,27 +106,16 @@ public final class VirtualWorld extends PApplet
                     if (entityOptional.get().getClass().equals(House.class)) {
                         world.removeEntity(entityOptional.get());
                     }
-                    // turn dudes into black kings
-                    if (entityOptional.get().getClass().equals(Dude_Full.class) || entityOptional.get().getClass().equals(Dude_Not_Full.class)) {
+                    // turn entities into pawns
+                    if (entityOptional.get() instanceof ActiveEntity || entityOptional.get().getClass().equals(Stump.class)) {
                         world.removeEntity(entityOptional.get());
-                        // add a black king
+                        //if location is on bottom half
+                            //create white pawn
+                        //if location is on top half
+                            //create black pawn
                     }
-                    // turn plants into black pawns
-                    // black pawns don't move
-                    if (entityOptional.get().getClass().equals(Sapling.class) || entityOptional.get().getClass().equals(Tree.class)
-                    || entityOptional.get().getClass().equals(Stump.class)) {
-                        world.removeEntity(entityOptional.get());
-                        // add a black pawn
-                    }
-                    // turn fairies into white rooks
-                    // white rooks look for black pawns, when they meet, black pawn -> white pawn
-                    if (entityOptional.get().getClass().equals(Fairy.class)) {
-                        world.removeEntity(entityOptional.get());
-                    }
-
                 }
-                // add a black queen
-
+                // add a modified fairy -> turns queens into opposite colored pawns
 
             }
         }
