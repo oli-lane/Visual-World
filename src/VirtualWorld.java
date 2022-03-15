@@ -101,6 +101,7 @@ public final class VirtualWorld extends PApplet
                     // remove obstacles
                     if (entityOptional.get().getClass().equals(Obstacle.class)) {
                         world.removeEntity(entityOptional.get());
+                        scheduler.unscheduleAllEvents(entityOptional.get());
                     }
                     // remove houses
                     if (entityOptional.get().getClass().equals(House.class)) {
@@ -109,24 +110,27 @@ public final class VirtualWorld extends PApplet
                     // turn entities into pawns
                     if (entityOptional.get() instanceof ActiveEntity || entityOptional.get().getClass().equals(Stump.class)) {
                         world.removeEntity(entityOptional.get());
-                        //if location is on bottom half
-                            //create white pawn
-                        //if location is on top half
+                        scheduler.unscheduleAllEvents(entityOptional.get());
+                        if (j < 15 && j > 1) {
                             //create black pawn
+                            BlackPawn bpawn = Factory.createBlackPawn("blackPawn", new Point(i, j),
+                                    3, 5, imageStore.getImageList("blackPawn"));
+                            world.addEntity(bpawn);
+                            bpawn.scheduleAction(scheduler, world, imageStore);
+                        }
+                        if (j > 15 && j < 30) {
+                            // create white pawn
+                            WhitePawn wpawn = Factory.createWhitePawn("whitePawn", new Point(i, j), 3, 5,
+                                    imageStore.getImageList("whitePawn"));
+                            world.addEntity(wpawn);
+                            wpawn.scheduleAction(scheduler, world, imageStore);
+                        }
                     }
                 }
-                // add a modified fairy -> turns queens into opposite colored pawns
+
 
             }
         }
-
-        Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (entityOptional.isPresent())
-        {
-            PlantEntity entity = (PlantEntity) entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getClass() + " : " + entity.getHealth());
-        }
-
     }
 
     private Point mouseToPoint(int x, int y)
