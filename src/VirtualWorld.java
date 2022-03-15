@@ -131,6 +131,10 @@ public final class VirtualWorld extends PApplet
 
             }
         }
+        Pixie pixie = Factory.createPixie("pixie", pressed, 3, 5,
+                imageStore.getImageList("pixie"));
+        world.addEntity(pixie);
+        pixie.scheduleAction(scheduler, world, imageStore);
     }
 
     private Point mouseToPoint(int x, int y)

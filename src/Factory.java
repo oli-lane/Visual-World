@@ -133,4 +133,15 @@ public class Factory {
                 actionPeriod, animationPeriod, images);
     }
 
+    public static Pixie createPixie(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new Pixie(id, position,
+                actionPeriod, animationPeriod, images);
+    }
+
 }
