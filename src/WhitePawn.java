@@ -11,7 +11,7 @@ public class WhitePawn extends Pawn {
 
     @Override
     boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
-        Point destination = new Point(this.getPosition().x, 0);
+        Point destination = new Point(this.getPosition().x, -1);
         if (adjacent(super.getPosition(), destination)) {
             return true;
         }
