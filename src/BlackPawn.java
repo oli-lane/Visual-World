@@ -33,8 +33,8 @@ public class BlackPawn extends Pawn {
     @Override
     void transformQueen(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         BlackQueen miner = Factory.createBlackQueen("blackQueen",
-                super.getPosition(), super.getActionPeriod(),
-                super.getAnimationPeriod(),
+                super.getPosition(), 500,
+                50,
                 imageStore.getImageList("blackQueen"));
 
         world.removeEntity(this);
