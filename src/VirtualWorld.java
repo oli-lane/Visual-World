@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -44,6 +46,9 @@ public final class VirtualWorld extends PApplet
 
     private long nextTime;
 
+    private boolean obstacles = true; // for first click stuff
+    private List<Point> obstacleList = new ArrayList<>();
+
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
     }
@@ -84,6 +89,18 @@ public final class VirtualWorld extends PApplet
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
 
+        if (obstacles) {
+            for (Entity entity : world.getEntities()) {
+                if (entity.getClass().equals(Obstacle.class)) {
+                    obstacleList.add(entity.getPosition());
+                }
+            }
+            for (Point p: obstacleList) {
+                world.removeEntityAt(p);
+            }
+            obstacles = false;
+        }
+
 
         for (int i = pressed.x - 4; i < pressed.x + 4; i++) {
             for (int j = pressed.y - 4; j < pressed.y + 4; j++) {
@@ -98,11 +115,6 @@ public final class VirtualWorld extends PApplet
                 // mess with entities
                 Optional<Entity> entityOptional = world.getOccupant(new Point(i, j));
                 if (entityOptional.isPresent()) {
-                    // remove obstacles
-                    if (entityOptional.get().getClass().equals(Obstacle.class)) {
-                        world.removeEntity(entityOptional.get());
-                        scheduler.unscheduleAllEvents(entityOptional.get());
-                    }
                     // remove houses
                     if (entityOptional.get().getClass().equals(House.class)) {
                         world.removeEntity(entityOptional.get());
@@ -114,14 +126,14 @@ public final class VirtualWorld extends PApplet
                         if (j < 15 && j > 1) {
                             //create black pawn
                             BlackPawn bpawn = Factory.createBlackPawn("blackPawn", new Point(i, j),
-                                    3, 5, imageStore.getImageList("blackPawn"));
+                                    600, 100, imageStore.getImageList("blackPawn"));
                             world.addEntity(bpawn);
                             bpawn.scheduleAction(scheduler, world, imageStore);
                         }
                         if (j > 15 && j < 30) {
                             // create white pawn
-                            WhitePawn wpawn = Factory.createWhitePawn("whitePawn", new Point(i, j), 3, 5,
-                                    imageStore.getImageList("whitePawn"));
+                            WhitePawn wpawn = Factory.createWhitePawn("whitePawn", new Point(i, j), 600,
+                                    100, imageStore.getImageList("whitePawn"));
                             world.addEntity(wpawn);
                             wpawn.scheduleAction(scheduler, world, imageStore);
                         }
@@ -131,7 +143,7 @@ public final class VirtualWorld extends PApplet
 
             }
         }
-        Pixie pixie = Factory.createPixie("pixie", pressed, 3, 5,
+        Pixie pixie = Factory.createPixie("pixie", pressed, 50, 50,
                 imageStore.getImageList("pixie"));
         world.addEntity(pixie);
         pixie.scheduleAction(scheduler, world, imageStore);

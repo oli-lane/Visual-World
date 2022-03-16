@@ -32,7 +32,7 @@ public abstract class Queen extends MoveEntity {
             destination = new Point(rand.nextInt(39), rand.nextInt(29));
         }
 
-        Point nextPos = this.nextPosition(world, destination);
+        Point nextPos = super.nextPosition(world, destination);
 
         if (!super.getPosition().equals(nextPos)) {
             Optional<Entity> occupant = world.getOccupant(nextPos);
@@ -44,4 +44,6 @@ public abstract class Queen extends MoveEntity {
         }
         return false;
     }
+
+
 }

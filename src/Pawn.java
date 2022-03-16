@@ -16,7 +16,6 @@ public abstract class Pawn extends MoveEntity {
         if (this.moveTo(world,
                 null, scheduler))
         {
-            System.out.println("yes");
             this.transformQueen(world, scheduler, imageStore);
         }
         else {
