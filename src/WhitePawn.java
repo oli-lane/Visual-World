@@ -12,7 +12,7 @@ public class WhitePawn extends Pawn {
     @Override
     boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
         Point destination = new Point(this.getPosition().x, -1);
-        if (adjacent(super.getPosition(), destination)) {
+        if (super.getPosition().y == 0) {
             return true;
         }
         else {
@@ -32,10 +32,10 @@ public class WhitePawn extends Pawn {
 
     @Override
     void transformQueen(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        WhiteQueen miner = Factory.createWhiteQueen(super.getId(),
+        WhiteQueen miner = Factory.createWhiteQueen("whiteQueen",
                 super.getPosition(), super.getActionPeriod(),
                 super.getAnimationPeriod(),
-                super.getImages());
+                imageStore.getImageList("whiteQueen"));
 
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
