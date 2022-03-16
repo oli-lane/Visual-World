@@ -28,6 +28,7 @@ public class BlackPawn extends Pawn {
             }
             return false;
         }
+
     }
 
     @Override
