@@ -15,9 +15,13 @@ public class Pixie extends MoveEntity {
     public void executeActivity(WorldModel world,
                                 ImageStore imageStore,
                                 EventScheduler scheduler) {
-        Optional<Entity> target =
-                world.findNearest(super.getPosition(), new ArrayList<>(Arrays.asList(Queen.class)));
-
+        List<Entity> queens = new ArrayList<>();
+        for (Entity entity: world.getEntities()) {
+            if (entity instanceof Queen) {
+                queens.add(entity);
+            }
+        }
+        Optional<Entity> target = world.nearestEntity(queens, super.getPosition());
         if (target.isPresent()) {
             Point tgtPos = target.get().getPosition();
             String color;
@@ -32,13 +36,13 @@ public class Pixie extends MoveEntity {
                 if (color.equals("White")){
                     //create black pawn
                     BlackPawn bpawn = Factory.createBlackPawn("blackPawn", tgtPos,
-                            3, 5, imageStore.getImageList("blackPawn"));
+                            600, 100, imageStore.getImageList("blackPawn"));
                     world.addEntity(bpawn);
                     bpawn.scheduleAction(scheduler, world, imageStore);
                 }
                 else{
                     // create white pawn
-                    WhitePawn wpawn = Factory.createWhitePawn("whitePawn", tgtPos, 3, 5,
+                    WhitePawn wpawn = Factory.createWhitePawn("whitePawn", tgtPos, 600, 100,
                             imageStore.getImageList("whitePawn"));
                     world.addEntity(wpawn);
                     wpawn.scheduleAction(scheduler, world, imageStore);
