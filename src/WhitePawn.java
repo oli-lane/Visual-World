@@ -33,8 +33,8 @@ public class WhitePawn extends Pawn {
     @Override
     void transformQueen(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         WhiteQueen miner = Factory.createWhiteQueen("whiteQueen",
-                super.getPosition(), super.getActionPeriod(),
-                super.getAnimationPeriod(),
+                super.getPosition(), 500,
+                50,
                 imageStore.getImageList("whiteQueen"));
 
         world.removeEntity(this);

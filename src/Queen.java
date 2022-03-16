@@ -16,6 +16,11 @@ public abstract class Queen extends MoveEntity {
 
     @Override
     void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+        if (this.moveTo(world,
+                null, scheduler)) {
+            this.destination = new Point(rand.nextInt(0, 39), rand.nextInt(0, 29));
+            ;
+        }
         scheduler.scheduleEvent(this,
                 Factory.createActivityAction(this, world, imageStore),
                 super.getActionPeriod());
@@ -28,11 +33,11 @@ public abstract class Queen extends MoveEntity {
 
     @Override
     boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
-        if (adjacent(super.getPosition(), target.getPosition())) {
-            destination = new Point(rand.nextInt(39), rand.nextInt(29));
+        if (super.getPosition().equals(this.destination)) {
+            return true;
         }
 
-        Point nextPos = this.nextPosition(world, destination);
+        Point nextPos = this.nextPosition(world, this.destination);
 
         if (!super.getPosition().equals(nextPos)) {
             Optional<Entity> occupant = world.getOccupant(nextPos);
@@ -44,4 +49,6 @@ public abstract class Queen extends MoveEntity {
         }
         return false;
     }
+
+
 }
